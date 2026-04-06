@@ -23,6 +23,31 @@ npm run build   # production build → dist/
 npm run preview # preview production build locally
 ```
 
+## Deployment
+
+This app is a static Vite build (`dist/`). Use any static host; two common options:
+
+### Vercel (recommended)
+
+1. Push this repo to GitHub (already done if you use the remote below).
+2. Go to [vercel.com](https://vercel.com) → **Add New** → **Project** → import the repository.
+3. Leave defaults: **Framework Preset** = Vite (or Other), **Build Command** `npm run build`, **Output Directory** `dist`.
+4. Deploy. Vercel reads `vercel.json` for the SPA rewrite.
+
+CLI (optional): `npx vercel` from the project root and follow the prompts.
+
+### Netlify
+
+1. [app.netlify.com](https://app.netlify.com) → **Add new site** → **Import an existing project** → connect the repo.
+2. Build: `npm run build`, publish: `dist` (or rely on `netlify.toml` in the repo).
+3. Deploy.
+
+### Preview locally (production build)
+
+```bash
+npm run build && npm run preview
+```
+
 ## Features
 
 - **Overview**: Total balance (with baseline), total income, total expenses

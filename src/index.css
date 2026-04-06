@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-surface: oklch(0.99 0.005 106);
+  --color-surface-muted: oklch(0.965 0.008 106);
+  --color-surface-elevated: oklch(1 0 0);
+  --color-ink: oklch(0.22 0.02 260);
+  --color-ink-muted: oklch(0.45 0.02 260);
+  --color-accent: oklch(0.52 0.14 165);
+  --color-accent-soft: oklch(0.92 0.04 165);
+  --color-income: oklch(0.48 0.14 145);
+  --color-expense: oklch(0.52 0.18 25);
+  --shadow-card: 0 1px 0 color-mix(in oklch, var(--color-ink) 6%, transparent),
+    0 12px 40px -16px color-mix(in oklch, var(--color-ink) 25%, transparent);
+  --shadow-float: 0 24px 80px -32px color-mix(in oklch, var(--color-accent) 35%, transparent);
+}
+
+.dark {
+  --color-surface: oklch(0.17 0.022 260);
+  --color-surface-muted: oklch(0.21 0.025 260);
+  --color-surface-elevated: oklch(0.23 0.028 260);
+  --color-ink: oklch(0.94 0.01 106);
+  --color-ink-muted: oklch(0.68 0.02 260);
+  --color-accent: oklch(0.72 0.12 165);
+  --color-accent-soft: oklch(0.28 0.06 165);
+  --color-income: oklch(0.72 0.14 145);
+  --color-expense: oklch(0.74 0.14 25);
+  --shadow-card: 0 1px 0 color-mix(in oklch, white 8%, transparent),
+    0 16px 48px -20px oklch(0 0 0 / 0.55);
+  --shadow-float: 0 24px 80px -28px oklch(0.35 0.08 165 / 0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Page backdrop: soft gradient + subtle grid */
+.page-shell {
+  background-color: var(--color-surface);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -30%, color-mix(in oklch, var(--color-accent) 18%, transparent), transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 0%, color-mix(in oklch, var(--color-income) 10%, transparent), transparent 45%),
+    linear-gradient(to bottom, color-mix(in oklch, var(--color-ink) 4%, transparent) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 24px;
+}
+
+.dark .page-shell {
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -25%, color-mix(in oklch, var(--color-accent) 22%, transparent), transparent 55%),
+    radial-gradient(ellipse 70% 45% at 100% 5%, color-mix(in oklch, var(--color-income) 8%, transparent), transparent 50%),
+    linear-gradient(to bottom, color-mix(in oklch, white 6%, transparent) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 24px;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--color-accent) 35%, transparent);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid color-mix(in oklch, var(--color-accent) 55%, transparent);
+  outline-offset: 2px;
+}
+
+/* Inputs: consistent focus ring without double outline */
+.ui-input {
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in oklch, var(--color-ink) 14%, transparent);
+  background: var(--color-surface-elevated);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--color-ink);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.ui-input:hover {
+  border-color: color-mix(in oklch, var(--color-ink) 22%, transparent);
+}
+.ui-input:focus {
+  outline: none;
+  border-color: color-mix(in oklch, var(--color-accent) 45%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--color-accent) 22%, transparent);
+}
+
+.ui-card {
+  border-radius: 1rem;
+  border: 1px solid color-mix(in oklch, var(--color-ink) 10%, transparent);
+  background: color-mix(in oklch, var(--color-surface-muted) 65%, transparent);
+  box-shadow: var(--shadow-card);
+}
+
+.dark .ui-card {
+  background: color-mix(in oklch, var(--color-surface-muted) 90%, transparent);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.45s ease-out both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-modal-in {
+  animation: fade-in 0.2s ease-out both;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-modal-panel {
+  animation: scale-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
